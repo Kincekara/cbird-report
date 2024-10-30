@@ -41,7 +41,7 @@ workflow cbird_report {
     output {
         File clia_report = plain_report.report
     }
-    }
+}
 
 task plain_report {
     input {
@@ -61,11 +61,37 @@ task plain_report {
     }
 
     command <<<
+        # short taxon
+        organism=$(echo "~{taxon}" | cut -d " " -f1,2)
+
+        # Enterobacter cloacae complex
+        ecc=("Enterobacter cloacae" "Enterobacter hormaechei" "Enterobacter sichuanensis"
+        "Enterobacter asburiae" "Enterobacter cancerogenus" "Enterobacter chengduensis"
+        "Enterobacter kobei" "Enterobacter ludwigii" "Enterobacter roggenkampii")
+
+        for i in "${ecc[@]}"; do
+            if [[ "$organism" == "$i" ]]; then
+                report_organism="Enterobacter cloacae complex"
+                break
+            fi
+        done
+        
+        # Klebsiella oxytoca complex
+        koc=("Klebsiella oxytoca" "Klebsiella michiganensis" "Klebsiella grimontii" "Klebsiella huaxiensis"
+        "Klebsiella huaxiensis" "Klebsiella pasteurii" "Klebsiella spallanzanii")
+
+        for i in "${koc[@]}"; do
+            if [[ "$organism" == "$i" ]]; then
+                report_organism="Klebsiella oxytoca complex"
+                break
+            fi
+        done
+
         # run python script
         report.py \
         -d "~{date}" \
         -i "~{labid}" \
-        -o "~{taxon}" \
+        -o "$report_organism" \
         -p "~{percent}" \
         -a ~{amr_report} \
         -l ~{logo1} \
