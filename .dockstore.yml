@@ -1,0 +1,7 @@
+version: 1.2
+workflows:
+ - name: cbird-clia-report
+   subclass: WDL
+   primaryDescriptorPath: /cbird_report.wdl
+   testParameterFiles:
+    - /empty.json
