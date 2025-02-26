@@ -112,7 +112,7 @@ task plain_report {
     }
 
     runtime {
-        docker: "kincekara/cbird-report:0.1"
+        docker: "kincekara/cbird-report:0.2"
         memory: "1 GB"
         cpu: 1
         disks: "local-disk 100 SSD"
