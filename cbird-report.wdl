@@ -71,7 +71,7 @@ task plain_report {
 
         for i in "${ecc[@]}"; do
             if [[ "$organism" == "$i" ]]; then
-                report_organism="Enterobacter cloacae complex"
+                organism="Enterobacter cloacae complex"
                 break
             fi
         done
@@ -82,7 +82,7 @@ task plain_report {
 
         for i in "${koc[@]}"; do
             if [[ "$organism" == "$i" ]]; then
-                report_organism="Klebsiella oxytoca complex"
+                organism="Klebsiella oxytoca complex"
                 break
             fi
         done
@@ -91,7 +91,7 @@ task plain_report {
         report.py \
         -d "~{date}" \
         -i "~{labid}" \
-        -o "$report_organism" \
+        -o "$organism" \
         -p "~{percent}" \
         -a ~{amr_report} \
         -l ~{logo1} \
